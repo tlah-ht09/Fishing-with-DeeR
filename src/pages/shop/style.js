@@ -2,19 +2,23 @@ import styled from '@emotion/styled'
 
 export const main = styled.div`
     display: flex;
-    width: 1370px;
+    width: 1570px;
     height: 900px;
     justify-content: center;
     align-items: center;
     background: #FFF;
     flex-shrink: 0;
     background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+    margin : auto;
 `;
 
 export const fishingRopDiv = styled.div`
     display: inline-flex;
     align-items: center;
     gap: 60px;
+    position:absolute;
+    left:22%;
+    top:50px;
 `
 
 export const fishingRop = styled.div`
@@ -25,36 +29,16 @@ export const fishingRop = styled.div`
     gap: 17px;
 `
 
-export const fishingRop2 = styled.div`
-    display: flex;
-    width: 245px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 17px;
-`
 
-export const fishingRop3 = styled.div`
-    display: flex;
-    width: 337px;
-    flex-direction: column;
-    align-items: center;
-    gap: 17px;
-`
-
-export const fishingRop4 = styled.div`
-    display: flex;
-    width: 235px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 17px;
-`
-
-export const fishingRop5 =styled.div`
+export const fishingRop2 =styled.div`
     display: flex;
     width: 463px;
     flex-direction: column;
     align-items: center;
     gap: 14px;
+    position:absolute;
+    top:500px;
+    right:300px;
 `
 
 export const fishingRopImg = styled.img`
@@ -72,6 +56,7 @@ export const fishingRopT = styled.p`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    
 `
 
 export const fishingRopImg2 = styled.img`
