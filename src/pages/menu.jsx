@@ -1,7 +1,9 @@
 import * as _ from "./style";
 import menu_img from "../assets/menu_img.png";
+import { useNavigate } from "react-router-dom";
 
 export const Menu = () => {
+  const navigate = useNavigate();
   return (
     <_.background src={menu_img}>
       <_.menu_bar>
@@ -9,7 +11,13 @@ export const Menu = () => {
           <_.logo_main></_.logo_main>
         </_.logo>
         <_.button_div>
-          <_.but>Start</_.but>
+          <_.but
+            onClick={() => {
+              navigate("/fishingGround");
+            }}
+          >
+            Start
+          </_.but>
           <_.but>Setting</_.but>
           <_.but>End</_.but>
         </_.button_div>
