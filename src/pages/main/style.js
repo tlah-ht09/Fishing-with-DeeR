@@ -27,15 +27,22 @@ export const buttonBar = styled.div`
 
 export const imgDiv = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100px;
   padding: 12px;
   justify-content: center;
   align-items: center;
   align-self: stretch;
+  gap: 30px;
+  margin-top: 300px;
+  margin-left: 30px;
 `;
 
 export const buttonImg = styled.img`
   width: 69.667px;
   height: 50.825px;
   flex-shrink: 0;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
 `;

@@ -17,9 +17,24 @@ export const FishingGround = () => {
       ></_.back>
       <_.buttonBar>
         <_.imgDiv>
-          <_.buttonImg src={dict}></_.buttonImg>
-          <_.buttonImg src={inven}></_.buttonImg>
-          <_.buttonImg src={shop}></_.buttonImg>
+          <_.buttonImg
+            src={dict}
+            onClick={() => {
+              navigate("/dict");
+            }}
+          ></_.buttonImg>
+          <_.buttonImg
+            src={inven}
+            onClick={() => {
+              navigate("/inven");
+            }}
+          ></_.buttonImg>
+          <_.buttonImg
+            src={shop}
+            onClick={() => {
+              navigate("/shop");
+            }}
+          ></_.buttonImg>
         </_.imgDiv>
       </_.buttonBar>
     </_.Main>
