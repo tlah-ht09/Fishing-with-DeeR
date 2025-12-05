@@ -4,9 +4,14 @@ import { useNavigate } from "react-router-dom";
 import dict from "../../assets/dict.png";
 import inven from "../../assets/inven.png";
 import shop from "../../assets/shop.png";
+import { useEffect, useRef } from "react";
 
 export const FishingGround = () => {
   const navigate = useNavigate();
+
+  const randomRef = useRef((Math.random() * 10000).toFixed(0));
+  console.log(randomRef.current);
+
   return (
     <_.Main>
       <_.back

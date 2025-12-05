@@ -1,9 +1,11 @@
 import * as _ from "./style";
 import back from "../../assets/back.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Dict = () => {
   const navigate = useNavigate();
+
   return (
     <_.main>
       <_.board>

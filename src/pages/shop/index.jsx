@@ -7,12 +7,13 @@ import pororo from "../../assets/Pororo_rod.png";
 import mc from "../../assets/mc_rod.png";
 import back from "../../assets/back.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Shop = () => {
   const navigate = useNavigate();
 
   const [money, setMoney] = useState(0);
+
   return (
     <_.main>
       <_.fishingRopDiv>
