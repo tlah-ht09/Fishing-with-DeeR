@@ -9,26 +9,16 @@ export const Dict = () => {
   return (
     <_.main>
       <_.board>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
-        <_.card></_.card>
+        <_.card_div>
+          <_.card></_.card>
+          <_.card></_.card>
+          <_.card></_.card>
+        </_.card_div>
+        <_.card_div>
+          <_.card></_.card>
+          <_.card></_.card>
+          <_.card></_.card>
+        </_.card_div>
       </_.board>
       <_.back
         src={back}

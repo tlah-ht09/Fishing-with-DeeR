@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const Menu = () => {
+  const navigate = useNavigate();
   return (
     <_.background src={menu_img}>
       <_.menu_bar>

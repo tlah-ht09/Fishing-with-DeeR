@@ -9,24 +9,35 @@ export const main = styled.div`
 `;
 
 export const board = styled.div`
-  margin-left: 200px;
-  padding-top: 20px;
-  display: grid;
-  width: 1130px;
-  height: 700px;
-  row-gap: 0px;
-  column-gap: 0px;
-  grid-template-rows: repeat(4, minmax(0, 1fr));
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  width: 1173px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  background-color: red;
+`;
+
+export const card_div = styled.div`
+  display: flex;
+  width: 575px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
 `;
 
 export const card = styled.div`
-  width: 120px;
+  width: 300px;
   height: 120px;
 
   border-radius: 10px;
   border: 2px solid #fff;
   background: #bf9e64;
+
+  display: flex;
+  padding: 37px 121px 38px 23px;
+  align-items: flex-end;
+  gap: 61px;
+  align-self: stretch;
 `;
 
 export const back = styled.img`
