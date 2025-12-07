@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const Inven = () => {
+
+  const inven = [
+    
+  ]
   const navigate = useNavigate();
 
   return (
