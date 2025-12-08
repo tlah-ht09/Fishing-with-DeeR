@@ -109,9 +109,7 @@ export const FishingGround = () => {
       const caught = value[Math.floor(Math.random() * value.length)];
       setGetFish(caught);
 
-      const weight = (Math.floor(Math.random() * (100 - 30 + 1)) + 30).toFixed(
-        2
-      );
+      const weight = (Math.random() * (100 - 30 + 1) + 30).toFixed(2);
       setFishWeight(weight);
 
       const numericWeight = parseFloat(weight);
