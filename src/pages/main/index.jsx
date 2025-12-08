@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import dict from "../../assets/dict.png";
 import inven from "../../assets/inven.png";
 import shop from "../../assets/shop.png";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { fish } from "./fish";
 import { io } from "socket.io-client";
+import { user_name, money, equippedRod } from "../../jotai.js"; // equippedRod 추가
 
 import crown_fish from "../../assets/fishing/crownfish.png";
 import shoes from "../../assets/fishing/shoes.png";
@@ -28,6 +29,7 @@ import unicorn from "../../assets/fishing/unicorn.png";
 import faker from "../../assets/fishing/faker.png";
 import teacher from "../../assets/fishing/teacher.png";
 import deer from "../../assets/fishing/deer.png";
+import { useAtomValue, useSetAtom } from "jotai";
 
 const img_list = {
   흰동가리: crown_fish,
@@ -54,17 +56,32 @@ const img_list = {
 
 const SOCKET_SERVER_URL = "http://10.150.2.5:5001";
 
+// 낚싯대 정보 매핑
+const rodStartValues = {
+  실: 0,
+  나무: 1000,
+  플라스틱: 3000,
+  평범한: 5000,
+  최고급: 7000,
+};
+
 export const FishingGround = () => {
   const navigate = useNavigate();
 
+  const setMoney = useSetAtom(money);
+  const currentRod = useAtomValue(equippedRod); // 현재 장착된 낚싯대
+
+  const user = useAtomValue(user_name);
   const [fishing, setFishing] = useState(false);
   const [value, setValue] = useState();
   const [getFish, setGetFish] = useState();
   const [fishWeight, setFishWeight] = useState();
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [fishingText, setFishingText] = useState("낚시 중...");
 
-  const min = 3000;
+  // 동적으로 min 값 설정
+  const min = rodStartValues[currentRod] || 0;
   const max = 10000;
   const r = useRef(-1);
 
@@ -85,6 +102,8 @@ export const FishingGround = () => {
 
       if (!data.fishing) {
         r.current = Math.floor(Math.random() * (max - min + 1)) + min;
+        console.log("랜덤 값 (min:", min, "max:", max, "):", r.current);
+
         if (0 <= r.current && r.current < 5600) {
           setValue(fish.normal);
         } else if (5600 <= r.current && r.current < 8600) {
@@ -102,7 +121,7 @@ export const FishingGround = () => {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [min, max]); // min 값 변경시 재구독
 
   useEffect(() => {
     if (!fishing && value && value.length > 0) {
@@ -118,7 +137,7 @@ export const FishingGround = () => {
       console.log("잡힌 물고기 등급:", value);
       console.log("잡힌 물고기:", caught);
       console.log("물고기 무게:", weight);
-      console.log("가격:", weight * 3);
+      console.log("가격:", (weight + 5) * 3 * 1000);
 
       setShowResult(true);
     } else if (!fishing && (!value || value.length === 0)) {
@@ -130,6 +149,34 @@ export const FishingGround = () => {
   }, [fishing, value]);
 
   useEffect(() => {
+    setMoney((prev) => prev + price);
+  }, [price]);
+
+  useEffect(() => {
+    if (getFish && fishWeight && price) {
+      fetch("http://10.150.2.5:5001/api/rank", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_name: user,
+          fish_name: getFish,
+          weight: fishWeight,
+          price: price,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("서버 응답:", data);
+        })
+        .catch((err) => {
+          console.error("에러:", err);
+        });
+    }
+  }, [getFish, fishWeight, price, user]);
+
+  useEffect(() => {
     if (showResult) {
       const timer = setTimeout(() => {
         handleCloseResult();
@@ -138,6 +185,20 @@ export const FishingGround = () => {
       return () => clearTimeout(timer);
     }
   }, [showResult]);
+
+  useEffect(() => {
+    if (fishing) {
+      setFishingText("낚시 중...");
+
+      const timer = setTimeout(() => {
+        setFishingText("!!!!!!!!!!!!!!!!!!!!");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    } else {
+      setFishingText("낚시 중...");
+    }
+  }, [fishing]);
 
   const handleCloseResult = () => {
     setShowResult(false);
@@ -154,14 +215,19 @@ export const FishingGround = () => {
       <_.buttonBar>
         <_.imgDiv>
           <_.buttonImg src={dict} onClick={() => navigate("/dict")} />
-          <_.buttonImg src={inven} onClick={() => navigate("/inven")} />
+          <_.buttonImg
+            src={inven}
+            onClick={() => {
+              alert("가방을 구매해야합니다!!");
+            }}
+          />
           <_.buttonImg src={shop} onClick={() => navigate("/shop")} />
         </_.imgDiv>
       </_.buttonBar>
 
       {fishing && (
         <_.Overlay>
-          <_.FishingText>낚시 중...</_.FishingText>
+          <_.FishingText>{fishingText}</_.FishingText>
         </_.Overlay>
       )}
 

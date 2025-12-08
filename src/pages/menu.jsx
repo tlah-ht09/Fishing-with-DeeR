@@ -1,14 +1,28 @@
 import * as _ from "./style";
 import menu_img from "../assets/menu_img.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSetAtom } from "jotai";
+import { user_name } from "../jotai";
 
 export const Menu = () => {
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState(
-    prompt("당신의 이름은 무엇인가요?", "홍길동")
-  );
+  const setName = useSetAtom(user_name);
+
+  const [userName, setUserName] = useState("");
+  const hasPrompted = useRef(false);
+  useEffect(() => {
+    if (hasPrompted.current) return;
+    hasPrompted.current = true;
+
+    const name = prompt("당신의 이름은 무엇인가요?", "user");
+    setUserName(name);
+  }, []);
+
+  useEffect(() => {
+    setName(userName);
+  }, [userName]);
   return (
     <_.background src={menu_img}>
       <_.menu_bar>
