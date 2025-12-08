@@ -29,6 +29,8 @@ import faker from "../../assets/fishing/faker.png";
 import teacher from "../../assets/fishing/teacher.png";
 import deer from "../../assets/fishing/deer.png";
 
+import {inven_list} from "../../jotai.js";
+
 const img_list = {
   흰동가리: crown_fish,
   신발: shoes,
